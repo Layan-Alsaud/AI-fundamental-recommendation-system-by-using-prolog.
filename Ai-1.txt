@@ -1,0 +1,257 @@
+/*
+This is an Expert System that suggest the suitiable youtuber for user .
+The prolog code was written by Layan Alsaud and Fai Almeganni for I.Amatulrahman Alsubhi  
+Course Name: Fundamentals of AI  Course Code: CCAI-221  Section : A2L   Date: 22/1/2023
+ */
+% Rules
+/*suggest rule it is the main rule in our expert system, The rule will welcome the user ask him about his/her preferable interst by shawing 
+some interest that our system has useing list rule (we will explain it later), read the interest, after that it will ask the user for his/her preferable 
+language and read it.finally the last question will ask the user about his/her preferable gender of youtuber and read it, now these three information is
+read then it will used in suitiableYoutuber rule (we will explain it later) , and we will use tryAgain rule(we will explain it later).*/
+
+suggest :- write('Hello dear user , welcome to our program that will suggest suitiable youtuber for you :'),nl,
+    write('What is your interest?: '),nl,list,read(I),
+    write('what is your preferable language arabic or english ?: '),read(L),
+    write('do you prafare male or female youtuber?: '),read(G),
+    suitiableYoutuber(I,L,G),nl,tryAgain.
+
+% this rule will show a menu that contain all the interest in our expert System , it is used in suggest rule 
+list :- write('art'),nl,write('beauty'),nl,
+    write('food'),nl,write('fashion'),nl,
+    write('games'),nl,write('plant'),
+    nl,write('photography'),nl,write('sports'),nl,
+    write('travel'),nl,write('vlogs'),nl.
+
+/* this rule helps us to find the youtuber, if the youtuber is found it will print the youtuber and his/her channel link  
+otherwise, our expert system will print sorry message. This rule is used in suggest rule */
+  
+suitiableYoutuber(I,L,G) :- ( youtuber(X,Y,I,L,G) -> write('the suitiable youtuber is : '),write(X),nl,write(' the channel link is : '),write(Y);
+   write('Sorry :( dear user we could not find a suitiable youtuber for you ..')).
+
+/* this rule will ask user if he/she wants to continue or not .
+Now, if the user write any values in answer fact(written below) then it will call suggest rule
+again (recursively), otherwise it will print end message and run will stop. It is used in suggest rule */
+
+tryAgain :- write("would you like to try again ?"),
+   ( read(Answer),answer(Answer)-> suggest; write('have a nice day!')).
+
+% answer fact , this fact contain the possible answers when the user wants to continue. 
+answer(yes).
+answer(y).
+answer(ya).
+answer(ok). 
+answer(aha). 
+
+% this rule will match the user preferable interest,language and gender with youtuber and there channel.
+youtuber(X,Y,I,L,G):- interest(X,I),gender(X,G),language(X,L),channel(X,Y).
+
+%Fact
+
+/* channel: this fact hold all youtubers and there channel link.
+Example: Noura_bo_awadh has channel which is https://youtube.com/@noraboawadh2969 */
+
+channel(walled_and_faisal,'ovannhttps://youtube.com/@Alwaleed_alfaisal').
+channel(nick_digiovanni,'https://youtube.com/@NickDiGii').
+channel(dhuha,'https://youtube.com/@Dhuha_mukbang').
+channel(tee,'https://youtube.com/@EatSpicywithTee').
+
+channel(noura_bo_awadh,'https://youtube.com/@noraboawadh2969').
+channel(hindash,'https://youtube.com/@Hindash').
+channel(kelly_strac,'https://youtube.com/@KellyStrack').
+
+channel(doha_dergham,'https://youtube.com/@dohadergham').
+channel(jordan_yeoh,'https://youtube.com/@jordanyeohfitness').
+channel(pamela_reif ,'https://youtube.com/@PamelaRf1').
+channel(younis_alaraj,'https://youtube.com/@younisalaraj9776').
+
+channel(jason_billam,'https://youtube.com/@JasonBillamTravel').
+channel(christianne,'https://youtube.com/@BackpackingBananas').
+channel(ahmad_aldurra ,'https://youtube.com/@PamelaRf1').
+channel(lulu_alkhataf,'https://youtube.com/@younisalaraj9776').
+
+channel(david_manning,'https://youtube.com/@DavidManningvlog').
+channel(kelly_brown,' https://youtube.com/@kellybrownphotographer').
+channel(ahmed_saeed,'https://youtube.com/@AhmedSaeedtuts').
+channel(noor,'https://youtube.com/@user-mn9wz6xz1c').
+
+channel(afaf_ben_abdeslam ,'https://youtube.com/@afafebenabdeslam911').
+channel(ben ,'https://youtube.com/@GrowVeg').
+channel(mahdi,'https://youtube.com/@COOLRozelaFlowers').
+channel(jenny,'https://youtube.com/@GardeningwithCreekside').
+
+channel(alpay_efe,'https://youtube.com/@AlpayEfe').
+channel(mako,'https://youtube.com/@Makoccino').
+channel(nour_yasin,'https://youtube.com/@NourYasinArt').
+channel(lara_murat,'https://youtube.com/@LaraMurat').
+
+channel(bandaritaX,'https://youtube.com/@BanderitaX').
+channel(meshael,'https://www.youtube.com/@MeshaelMR').
+channel(sensei,'https://youtube.com/@SENSEI1').
+channel(sommerset,'https://www.youtube.com/@Sommerset1').
+
+channel(shaden,'https://www.youtube.com/@shaden2121').
+channel(thunyyan_khalid,'https://youtube.com/@toun16').
+channel(itsyuyan,'https://youtube.com/@ItsYuyan').
+channel(alex,'https://www.youtube.com/@AlexLiu1').
+
+channel(summer_shaker,'https://youtube.com/@summer.shaker').
+channel(hespokestyle,'https://youtube.com/@hespokestyle').
+channel(kerin_wang,'https://youtube.com/@KerinaWang').
+channel(ahmed_mahmoud,'https://www.youtube.com/@ahmed.mahmoud').
+
+/* gender: this fact hold all youtubers and there gender.
+Example: Noor's gender is female . */
+
+gender(walled_and_faisal,male).
+gender(nick_digiovanni,male).
+gender(dhuha,female).
+gender(tee,female).
+
+gender(noura_bo_awadh,female).
+gender(hindash,male).
+gender(kelly_strac,female).
+
+gender(doha_dergham,female).
+gender(pamela_reif,female).
+gender(jordan_yeoh,male).
+gender(younis_alaraj,male).
+
+gender(christianne,female).
+gender(jason_billam,male).
+gender(lulu_alkhataf,female).
+gender(ahmad_aldurra,male).
+
+gender(kelly_brown,female).
+gender(david_manning,male).
+gender(noor,female).
+gender(ahmed_saeed,male).
+
+gender(afaf_ben_abdeslam,female).
+gender(ben,male).
+gender(jenny,female).
+gender(mahdi,male).
+
+gender(mako,female).
+gender(alpay_efe,male).
+gender(lara_murat,female).
+gender(nour_yasin,male).
+
+gender(bandaritaX,male).
+gender(meshael,female).
+gender(sensei,male).
+gender(sommerset,female).
+
+gender(shaden,female).
+gender(thunyyan_khalid,male).
+gender(itsyuyan ,female).
+gender(alex,male).
+
+gender(summer_shaker,female).
+gender(hespokestyle,male).
+gender(kerin_wang,female).
+gender(ahmed_mahmoud,male).
+
+/* language: this fact hold all youtubers and there language.
+Example: Mahdi's language is arabic . */
+
+language(walled_and_faisal,arabic).
+language(nick_digiovanni,english).
+language(dhuha,arabic).
+language(tee,english).
+
+language(noura_bo_awadh,arabic).
+language(hindash,english).
+language(kelly_strac,english).
+
+language(doha_dergham,arabic).
+language(younis_alaraj,arabic).
+language(jordan_yeoh,english).
+language(pamela_reif,english).
+
+language(ahmad_aldurra,arabic).
+language(christianne,english).
+language(lulu_alkhataf,arabic).
+language(jason_billam,english).
+
+language(ahmed_saeed,arabic).
+language(david_manning,english).
+language(noor,arabic).
+language(kelly_brown,english).
+
+language(afaf_ben_abdeslam,arabic).
+language(ben,english).
+language(mahdi,arabic).
+language(jenny,english).
+
+language(nour_yasin,arabic).
+language(alpay_efe,english).
+language(lara_murat,arabic).
+language(mako,english).
+
+language(bandaritaX,arabic).
+language(meshael,arabic).
+language(sensei ,english).
+language(sommerset,english).
+
+language(shaden,arabic).
+language(thunyyan_khalid,arabic).
+language(itsyuyan ,english).
+language(alex,english).
+
+language(summer_shaker,arabic).
+language(hespokestyle,english).
+language(kerin_wang,english). 
+language(ahmed_mahmoud,arabic).
+
+/*  interest : this fact hold all youtubers and there interest.
+Example: Jenny is interested in beauty . */
+
+interest(walled_and_faisal,food).
+interest(nick_digiovanni,food).
+interest(dhuha,food).
+interest(tee,food).
+
+interest(noura_bo_awadh,beauty).
+interest(hindash,beauty).
+interest(kelly_strac,beauty).
+
+interest(doha_dergham,sports).
+interest(jordan_yeoh,sports).
+interest(pamela_reif,sports).
+interest(younis_alaraj,sports).
+
+interest(jason_billam,travel).
+interest(christianne,travel).
+interest(ahmad_aldurra,travel).
+interest(lulu_alkhataf,travel).
+
+interest(david_manning,photography).
+interest(kelly_brown,photography).
+interest(ahmed_saeed,photography).
+interest(noor,photography).
+
+interest(afaf_ben_abdeslam,plant).
+interest(ben,plant).
+interest(mahdi,plant).
+interest(jenny,plant).
+
+interest(alpay_efe,art).
+interest(mako,art).
+interest(nour_yasin,art).
+interest(lara_murat,art).
+
+interest(bandaritaX,games).
+interest(meshael,games).
+interest(sensei ,games).
+interest(sommerset,games).
+
+interest(shaden,vlogs).
+interest(thunyyan_khalid,vlogs).
+interest(itsyuyan ,vlogs).
+interest(alex,vlogs).
+
+interest(summer_shaker,fashion).
+interest(hespokestyle,fashion).
+interest(kerin_wang,fashion).
+interest(ahmed_mahmoud,fashion).
+
